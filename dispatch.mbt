@@ -1,4 +1,5 @@
 // Generated from pinned libinjection character dispatch table.
+
 ///|
 let character_dispatch : Array[String] = [
   "white", "white", "white", "white", "white", "white", "white", "white", "white",
