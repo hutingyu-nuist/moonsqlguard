@@ -1,4 +1,5 @@
 // SQL string contexts: retain delimiters and byte offsets without decoding input.
+
 ///|
 fn Scanner::string_core(self : Scanner, delim : Int, offset : Int) -> Token {
   let start = self.pos + offset
