@@ -1,4 +1,5 @@
 // libinjection parser state translated to bounds-checked byte indices.
+
 ///|
 priv struct Scanner {
   data : Bytes
