@@ -1,0 +1,5 @@
+import {
+  "hutingyu-nuist/moonsqlguard" @sqlg,
+}
+
+pkgtype(kind: "executable")
