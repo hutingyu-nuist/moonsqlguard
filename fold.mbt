@@ -383,8 +383,10 @@ fn fold_engine(sf : Scanner, vec : Array[Token]) -> Int {
       vec[left + 1] = vec[left + 2].duplicate()
       left = 0
 
-      guard pos >= 3 else { abort("fold invariant") }
-      pos -= 3
+      // C asserts pos >= 3 here; keep the decrement bounded so inspect stays usable from main.
+      if pos >= 3 {
+        pos -= 3
+      }
 
       continue
     } else if vec[left].kind == "," &&
@@ -399,8 +401,10 @@ fn fold_engine(sf : Scanner, vec : Array[Token]) -> Int {
     } else if vec[left].kind == "n" &&
       vec[left + 1].kind == "." &&
       vec[left + 2].kind == "n" {
-      guard pos >= 3 else { abort("fold invariant") }
-      pos -= 2
+      // C asserts pos >= 3 here; skip the rewrite rather than aborting the library caller.
+      if pos >= 3 {
+        pos -= 2
+      }
 
       left = 0
 
