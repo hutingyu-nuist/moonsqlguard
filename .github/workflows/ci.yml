@@ -1,0 +1,21 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install MoonBit
+        run: |
+          curl -fsSL https://cli.moonbitlang.com/install/unix.sh | bash
+          echo "$HOME/.moon/bin" >> "$GITHUB_PATH"
+      - run: moon version --all
+      - run: moon fmt --check
+      - run: moon check --target wasm-gc --deny-warn
+      - run: moon check --target wasm --deny-warn
+      - run: moon check --target js --deny-warn
+      - run: moon check --target native --deny-warn
+      - run: moon test --target wasm-gc
+      - run: moon run examples/web_field --target wasm-gc
+      - run: moon run examples/log_scan --target wasm-gc
+      - run: moon run examples/fixture_dump --target wasm-gc
