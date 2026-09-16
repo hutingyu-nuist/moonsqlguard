@@ -28,7 +28,7 @@ pub fn scan_fields(fields : Array[Field]) -> Array[FieldHit] {
 ///|
 /// Format a verdict for logs: `sqli <pattern>` or `clean <pattern>`.
 pub fn format_detection(d : Detection) -> String {
-  let s = StringBuilder::new()
+  let s = StringBuilder()
   if d.hit {
     s.write_string("sqli ")
   } else {

@@ -26,7 +26,7 @@ pub fn fingerprint(
     vec[n - 1].kind = "c"
   }
   let tokens = Array::makei(n, i => vec[i].duplicate())
-  let s = StringBuilder::new()
+  let s = StringBuilder()
   for t in tokens {
     s.write_string(t.kind)
   }

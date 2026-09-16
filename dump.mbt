@@ -2,7 +2,7 @@
 
 ///|
 fn latin1(value : Bytes) -> String {
-  let s = StringBuilder::new()
+  let s = StringBuilder()
   for x in value {
     s.write_char(x.to_int().unsafe_to_char())
   }
@@ -24,7 +24,7 @@ fn rtrim_text(s : String) -> String {
       break
     }
   }
-  let out = StringBuilder::new()
+  let out = StringBuilder()
   for i = 0; i < n; i = i + 1 {
     out.write_char(codes[i].unsafe_to_char())
   }
@@ -33,7 +33,7 @@ fn rtrim_text(s : String) -> String {
 
 ///|
 fn dump_string(t : Token) -> String {
-  let s = StringBuilder::new()
+  let s = StringBuilder()
   if t.open != 0 {
     s.write_char(t.open.unsafe_to_char())
   }
@@ -47,7 +47,7 @@ fn dump_string(t : Token) -> String {
 ///|
 /// One testdriver line: `kind value`, with quote marks restored for strings.
 pub fn format_token(t : Token) -> String {
-  let s = StringBuilder::new()
+  let s = StringBuilder()
   s.write_string(t.kind)
   s.write_char(' ')
   if t.kind == "s" {
@@ -73,7 +73,7 @@ pub fn dump_tokens(
   dialect? : Dialect = Ansi,
   quote? : Quote = None,
 ) -> String {
-  let s = StringBuilder::new()
+  let s = StringBuilder()
   for t in tokenize(data, dialect~, quote~) {
     s.write_string(format_token(t))
     s.write_char('\n')
@@ -100,7 +100,7 @@ pub fn dump_folded(
   dialect? : Dialect = Ansi,
   quote? : Quote = None,
 ) -> String {
-  let s = StringBuilder::new()
+  let s = StringBuilder()
   for t in folded_tokens(data, dialect, quote) {
     s.write_string(format_token(t))
     s.write_char('\n')

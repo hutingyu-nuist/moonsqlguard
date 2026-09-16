@@ -52,7 +52,7 @@ fn upper(b : Int) -> Int {
 
 ///|
 fn upper_text(b : Bytes) -> String {
-  let s = StringBuilder::new()
+  let s = StringBuilder()
   for x in b {
     s.write_char(upper(x.to_int()).unsafe_to_char())
   }

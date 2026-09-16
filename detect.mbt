@@ -48,7 +48,7 @@ fn pattern_codes(pattern : String) -> Array[Int] {
 
 ///|
 fn v1_key(pattern : String) -> String {
-  let s = StringBuilder::new()
+  let s = StringBuilder()
   s.write_char('0')
   for c in pattern {
     s.write_char(upper(c.to_int()).unsafe_to_char())
