@@ -13,7 +13,7 @@ priv struct Scanner {
 
 ///|
 fn scanner(data : Bytes, dialect : Dialect, quote : Quote) -> Scanner {
-  { data, dialect, quote, pos: 0, tokens: 0, dash_ambiguous: 0, hash_count: 0 }
+  { data, dialect, quote, pos: 0, tokens: 0, dash_ambiguous: 0, hash_count: 0, }
 }
 
 ///|

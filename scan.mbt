@@ -19,7 +19,7 @@ pub fn scan_fields(fields : Array[Field]) -> Array[FieldHit] {
   for f in fields {
     let detection = inspect(f.value)
     if detection.hit {
-      out.push({ name: f.name, detection })
+      out.push({ name: f.name, detection, })
     }
   }
   out

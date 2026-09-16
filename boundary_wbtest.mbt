@@ -10,11 +10,11 @@ test "percent-encoded quotes stay literal bytes" {
 ///|
 test "scan_fields drops empty NUL and keeps ordered hits" {
   let hits = scan_fields([
-    { name: "empty", value: b"" },
-    { name: "nul", value: Bytes::make(1, b'\x00') },
-    { name: "q", value: b"1 OR 1=1" },
-    { name: "note", value: b"hello" },
-    { name: "id", value: b"1--" },
+    { name: "empty", value: b"", },
+    { name: "nul", value: Bytes::make(1, b'\x00'), },
+    { name: "q", value: b"1 OR 1=1", },
+    { name: "note", value: b"hello", },
+    { name: "id", value: b"1--", },
   ])
   assert_eq(hits.length(), 2)
   assert_eq(hits[0].name, "q")

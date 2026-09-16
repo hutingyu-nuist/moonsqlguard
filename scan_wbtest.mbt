@@ -1,10 +1,10 @@
 ///|
 test "scan_fields keeps ordered SQLi hits and drops clean values" {
   let hits = scan_fields([
-    { name: "q", value: b"hello" },
-    { name: "id", value: b"1 OR 1=1" },
-    { name: "note", value: b"1--" },
-    { name: "empty", value: b"" },
+    { name: "q", value: b"hello", },
+    { name: "id", value: b"1 OR 1=1", },
+    { name: "note", value: b"1--", },
+    { name: "empty", value: b"", },
   ])
   assert_eq(hits.length(), 2)
   assert_eq(hits[0].name, "id")

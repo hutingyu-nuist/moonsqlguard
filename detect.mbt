@@ -163,7 +163,7 @@ priv struct Probe {
 
 ///|
 fn empty_detection() -> Detection {
-  { hit: false, pattern: "", quote: None, dialect: Ansi, tokens: [] }
+  { hit: false, pattern: "", quote: None, dialect: Ansi, tokens: [], }
 }
 
 ///|
