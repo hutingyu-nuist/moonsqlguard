@@ -6,6 +6,8 @@
 
 ## 安装
 
+需要 MoonBit 工具链，`moonc` 版本不低于 `0.10.14`。本地验收使用 `moon 0.1.20260920`、`moonc v0.10.14`；CI 每次从官方安装脚本获取工具链并检查版本下限。
+
 ```text
 moon add hutingyu-nuist/moonsqlguard
 ```
@@ -54,15 +56,21 @@ id sqli 1c
 moon run examples/fixture_dump --target wasm-gc
 ```
 
-## 验证
+## 验证和 CI
+
+本地一键复现：
 
 ```text
 moon fmt --check
 moon check --target wasm-gc --deny-warn
+moon check --target wasm --deny-warn
+moon check --target js --deny-warn
+moon check --target native --deny-warn
+moon build --target all --deny-warn
 moon test --target wasm-gc
 ```
 
-本地对 pinned testdriver：`test-sqli-*` 50/50，`test-folding-*` 118/118，收录的 `test-tokens-*` 204 条期望字符串一致。当前 27 个 MoonBit 测试块走 wasm-gc；wasm / js / native 做 `check --deny-warn`。
+GitHub Actions 会先校验 `moonc >= 0.10.14`，再执行格式检查、四后端严格检查、全后端构建、核心测试和三个示例。native 构建需要系统 C 编译器，CI 的 Ubuntu 环境已覆盖。测试共 30 个测试块，其中 27 个覆盖内部算法和上游夹具，3 个从公开 API 验证检测、字段扫描和 token dump。固定上游夹具结果为：`test-sqli-*` 50/50，`test-folding-*` 118/118，收录的 `test-tokens-*` 204 条期望字符串一致。完整验收命令和证据见 [`ACCEPTANCE.md`](ACCEPTANCE.md)。
 
 ## 边界
 
