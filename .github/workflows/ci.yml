@@ -9,13 +9,44 @@ jobs:
         run: |
           curl -fsSL https://cli.moonbitlang.com/install/unix.sh | bash
           echo "$HOME/.moon/bin" >> "$GITHUB_PATH"
-      - run: moon version --all
-      - run: moon fmt --check
-      - run: moon check --target wasm-gc --deny-warn
-      - run: moon check --target wasm --deny-warn
-      - run: moon check --target js --deny-warn
-      - run: moon check --target native --deny-warn
-      - run: moon test --target wasm-gc
-      - run: moon run examples/web_field --target wasm-gc
-      - run: moon run examples/log_scan --target wasm-gc
-      - run: moon run examples/fixture_dump --target wasm-gc
+      - name: Show toolchain
+        run: moon version --all
+      - name: Enforce moonc minimum
+        run: |
+          python3 - <<'PY'
+          import re
+          import subprocess
+          import sys
+
+          output = subprocess.run(
+              ["moonc", "-v"], capture_output=True, text=True, check=True
+          )
+          text = output.stdout + output.stderr
+          match = re.search(r"v?(\d+)\.(\d+)\.(\d+)", text)
+          if match is None:
+              print(f"cannot parse moonc version: {text}", file=sys.stderr)
+              raise SystemExit(1)
+          actual = tuple(map(int, match.groups()))
+          required = (0, 10, 14)
+          print(f"moonc version: {'.'.join(map(str, actual))}")
+          if actual < required:
+              print("moonc 0.10.14 or newer is required", file=sys.stderr)
+              raise SystemExit(1)
+          PY
+      - name: Format check
+        run: moon fmt --check
+      - name: Strict checks
+        run: |
+          moon check --target wasm-gc --deny-warn
+          moon check --target wasm --deny-warn
+          moon check --target js --deny-warn
+          moon check --target native --deny-warn
+      - name: Build all backends
+        run: moon build --target all --deny-warn
+      - name: Test core and public API
+        run: moon test --target wasm-gc
+      - name: Run reproducible examples
+        run: |
+          moon run examples/web_field --target wasm-gc
+          moon run examples/log_scan --target wasm-gc
+          moon run examples/fixture_dump --target wasm-gc
