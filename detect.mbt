@@ -155,6 +155,12 @@ pub(all) struct Detection {
 } derive(Eq, Debug)
 
 ///|
+pub extend Detection with Eq::{not_equal, equal}
+
+///|
+pub extend Detection with @debug.Debug::{to_repr}
+
+///|
 priv struct Probe {
   detection : Detection
   hashes : Int

@@ -9,6 +9,12 @@ struct Fixture {
 } derive(Eq, Debug)
 
 ///|
+pub extend Fixture with Eq::{not_equal, equal}
+
+///|
+pub extend Fixture with @debug.Debug::{to_repr}
+
+///|
 let sqli_fixtures : Array[Fixture] = [
   { name: "test-sqli-001.txt", input: b"foo 'bar' \"zap\"", expected: "", },
   { name: "test-sqli-002.txt", input: b"foo 'bar'", expected: "", },

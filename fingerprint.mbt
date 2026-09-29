@@ -9,6 +9,12 @@ pub(all) struct Fingerprint {
 } derive(Eq, Debug)
 
 ///|
+pub extend Fingerprint with Eq::{not_equal, equal}
+
+///|
+pub extend Fingerprint with @debug.Debug::{to_repr}
+
+///|
 /// Run the upstream bounded folding algorithm in one quote/dialect context.
 pub fn fingerprint(
   data : Bytes,

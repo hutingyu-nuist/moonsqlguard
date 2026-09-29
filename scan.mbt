@@ -6,11 +6,23 @@ pub(all) struct Field {
 } derive(Eq, Debug)
 
 ///|
+pub extend Field with Eq::{not_equal, equal}
+
+///|
+pub extend Field with @debug.Debug::{to_repr}
+
+///|
 /// A field whose bytes were classified as SQLi.
 pub(all) struct FieldHit {
   name : String
   detection : Detection
 } derive(Eq, Debug)
+
+///|
+pub extend FieldHit with Eq::{not_equal, equal}
+
+///|
+pub extend FieldHit with @debug.Debug::{to_repr}
 
 ///|
 /// Inspect each field in order and keep only SQLi hits.

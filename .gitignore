@@ -2,3 +2,4 @@ _build/
 .moon/
 *.exe
 __pycache__/
+pkg.generated.mbti

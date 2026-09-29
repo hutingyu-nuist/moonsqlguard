@@ -12,10 +12,22 @@ pub(all) struct Token {
 } derive(Eq, Debug)
 
 ///|
+pub extend Token with Eq::{not_equal, equal}
+
+///|
+pub extend Token with @debug.Debug::{to_repr}
+
+///|
 pub(all) enum Dialect {
   Ansi
   Mysql
 } derive(Eq, Debug)
+
+///|
+pub extend Dialect with Eq::{not_equal, equal}
+
+///|
+pub extend Dialect with @debug.Debug::{to_repr}
 
 ///|
 pub(all) enum Quote {
@@ -23,6 +35,12 @@ pub(all) enum Quote {
   Single
   Double
 } derive(Eq, Debug)
+
+///|
+pub extend Quote with Eq::{not_equal, equal}
+
+///|
+pub extend Quote with @debug.Debug::{to_repr}
 
 ///|
 fn token(kind : String, pos : Int, value : Bytes) -> Token {
